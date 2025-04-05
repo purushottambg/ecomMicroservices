@@ -9,6 +9,7 @@ import lombok.Setter;
 @Table(name = "products")
 @Getter
 @Setter
+@Data
 public class ProductEntity {
 
     @Id
@@ -17,7 +18,7 @@ public class ProductEntity {
 
     private String name;
 
-    private Double value;
+    private Double price;
 
     private Integer stock;
 
