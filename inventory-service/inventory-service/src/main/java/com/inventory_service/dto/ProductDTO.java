@@ -3,11 +3,13 @@ package com.inventory_service.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
+
 public class ProductDTO {
 
-    private Long productID;
-    private String Name;
+    private Long product_id;
+
+    private String name;
 
 }

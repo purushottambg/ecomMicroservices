@@ -1,20 +1,25 @@
 package com.inventory_service.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
 public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     private Long product_id;
 
-    private String Name;
+    private String name;
 
-    private Double Value;
+    private Double value;
 
-    private Integer Stock;
+    private Integer stock;
 
-    private String Description;
+    private String description;
 }
