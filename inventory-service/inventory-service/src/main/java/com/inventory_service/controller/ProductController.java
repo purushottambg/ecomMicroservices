@@ -2,6 +2,7 @@ package com.inventory_service.controller;
 
 import com.inventory_service.dto.ProductDTO;
 import com.inventory_service.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -12,14 +13,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 
 public class ProductController {
+
     Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
-    ProductController(ProductService productService){
-        this.productService=productService;
-    }
-
 
     @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDTO>> showProducts(){
