@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 
 public class ProductController {
@@ -20,13 +20,13 @@ public class ProductController {
     Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
-    @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ProductDTO>> showProducts(){
         List<ProductDTO> productDTO = productService.findAll();
         return ResponseEntity.ok(productDTO);
     }
 
-    @GetMapping(value = "/products/{productID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{productID}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductDTO> showProductByID(@PathVariable Long productID){
         logger.info("Retrieved DTO is: {}",productService.findByID(productID));
         return ResponseEntity.ok(productService.findByID(productID));
