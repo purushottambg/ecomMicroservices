@@ -6,7 +6,15 @@ spring:
     cloud:
         gateway:
             routes:
-                -id: order-service
+              - id: order-service
                 uri: lb://ORDER-SERVICE
-                predicate:
-                    - Path=/api/v1/orders/**
+                predicates:
+                    - Path=/orders/**
+                    - Method = GET, POST
+                filter:
+
+              - id: inventory-service
+                uri: lb://INVENTORY-SERVICE
+                predicates:
+                    - Path=/inventory/**
+
