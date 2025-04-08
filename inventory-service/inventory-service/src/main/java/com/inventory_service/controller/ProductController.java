@@ -32,5 +32,10 @@ public class ProductController {
         return ResponseEntity.ok(productService.findByID(productID));
     }
 
+    @GetMapping("/availability")
+    public String getAvailability(){
+        return "Sab kuchh hai apne pass";
+    }
+
 
 }
