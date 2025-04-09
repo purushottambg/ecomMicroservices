@@ -16,9 +16,11 @@ spring:
                     - Method = GET,POST
 
               - id: order-service
-                uri: lb://ORDER-SERVICE
+                uri: lb://order-service
                 predicates:
-                    - Path=/orders/**
+                  - Path=/orders/**
+                filters:
+                    - StripPrefix=0
 
 eureka:
   client:
