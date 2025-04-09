@@ -3,6 +3,7 @@ package com.inventory_service.controller;
 import com.inventory_service.dto.ProductDTO;
 import com.inventory_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -12,15 +13,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/inventory")
 @RequiredArgsConstructor
-
 public class ProductController {
 
     Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("greet")
+    public String greet(){
+        logger.info("✅ Reached Inventory Controller!");;
+        return ("Reached Inventory Controller!");
+    }
+
+    @GetMapping("")
     public ResponseEntity<List<ProductDTO>> showProducts(){
         List<ProductDTO> productDTO = productService.findAll();
         return ResponseEntity.ok(productDTO);
