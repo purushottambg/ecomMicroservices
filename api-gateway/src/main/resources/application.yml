@@ -8,21 +8,41 @@ spring:
 #API gateway config
     cloud:
         gateway:
-            routes:
-              - id: inventory-service
-                uri: lb://INVENTORY-SERVICE
-                predicates:
-                    - Path=/inventory/**
-                    - Method = GET,POST
 
+            discovery:
+              locator:
+                enabled: true
+                lowerCaseServiceId: false
+
+            routes:
               - id: order-service
-                uri: lb://order-service
+                uri: lb://ORDER-SERVICE
                 predicates:
                   - Path=/orders/**
                 filters:
                     - StripPrefix=0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+      - org.springframework.cloud.gateway: TRACE
+      - org.springframework.http.server.reactive: DEBUG
+      - org.springframework.web.reactive: DEBUG
+      - reactor.netty: DEBUG
+      - org.springframework.cloud.netflix.eureka: DEBUG
+      - com.netflix.discovery: DEBUG
+      - org.springframework.cloud.loadbalancer: DEBUG
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+    healthcheck:
+      enabled: true
