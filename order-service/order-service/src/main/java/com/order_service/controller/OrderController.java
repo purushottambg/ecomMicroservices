@@ -32,7 +32,7 @@ public class OrderController {
     public String getAvailabilityFromInventory(){
         ServiceInstance productService = discoveryClient.getInstances("inventory-service").get(0);
         String response = restClient.get()
-                .uri(productService.getUri()+"/api/v1/products/availability")
+                .uri(productService.getUri()+"/inventory/availability")
                 .retrieve()
                 .body(String.class);
         return response;
