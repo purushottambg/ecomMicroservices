@@ -25,6 +25,14 @@ public class ProductController {
         return ("Reached Inventory Controller!");
     }
 
+    @GetMapping("/productname")
+    public String getProductNameById(Long id){
+        logger.info("Trying return product name for {}th product!",id);
+        ProductDTO productDTO  = productService.findByID(id);
+        logger.info("Product name is: {}",productDTO.getName());
+        return productDTO.getName();
+    }
+
     @GetMapping("")
     public ResponseEntity<List<ProductDTO>> showProducts(){
         List<ProductDTO> productDTO = productService.findAll();
