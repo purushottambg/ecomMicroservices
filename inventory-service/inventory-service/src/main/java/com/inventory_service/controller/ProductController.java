@@ -3,7 +3,6 @@ package com.inventory_service.controller;
 import com.inventory_service.dto.ProductDTO;
 import com.inventory_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -20,7 +19,7 @@ public class ProductController {
     Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
-    @GetMapping("greet")
+    @GetMapping("/greet")
     public String greet(){
         logger.info("✅ Reached Inventory Controller!");;
         return ("Reached Inventory Controller!");
@@ -42,6 +41,5 @@ public class ProductController {
     public String getAvailability(){
         return "Sab kuchh hai apne pass";
     }
-
 
 }
