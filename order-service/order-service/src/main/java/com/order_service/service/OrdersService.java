@@ -1,6 +1,9 @@
 package com.order_service.service;
 
 import com.order_service.dto.OrderRequestDTO;
+import com.order_service.dto.OrderRequestItemDTO;
+import com.order_service.entity.OrderItemsEntity;
+import com.order_service.entity.OrderStatusENum;
 import com.order_service.entity.OrdersEntity;
 import com.order_service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +37,16 @@ public class OrdersService {
     }
 
     public OrderRequestDTO createNewOrder(OrderRequestDTO orderRequestDTO){
-        OrdersEntity toBeSavedOrder = modelMapper.map(orderRequestDTO, OrdersEntity.class);
-        log.info("Order with order id {} has been saved!", toBeSavedOrder.getId());
-        return modelMapper.map(orderRepository.save(toBeSavedOrder), OrderRequestDTO.class);
+
+        OrdersEntity ordersEntity = modelMapper.map(orderRequestDTO, OrdersEntity.class);
+        if(ordersEntity==null){
+            log.info("order entity is null");
+        }
+        ordersEntity.setOrderStatus(OrderStatusENum.CONFIRMED);
+        for (OrderRequestItemDTO items: orderRequestDTO.getItems()){
+            ordersEntity.setOrderItems(modelMapper.map(items, OrdersEntity.class).getOrderItems());
+        }
+        ordersEntity.setPrice(12300d);
+        return modelMapper.map(orderRepository.save(ordersEntity), OrderRequestDTO.class);
     }
 }

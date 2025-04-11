@@ -55,7 +55,7 @@ public class OrderController {
         if(orderRequestDTO==null){
             return "Kindly provide the entire order details, seems sufficient data not provided";
         }
-        log.info("Inside the Order controller!");
+        log.info("Inside the Order controller! received order for {} items", orderRequestDTO.getItems().size());
         for(OrderRequestItemDTO item: orderRequestDTO.getItems()){
             log.info("Iteration of the update is for id: {}",item.getProductId());
             if(item.getQuantity()>inventoryInOrderServiceFeignClient.getAvailableCount(item.getProductId())){
