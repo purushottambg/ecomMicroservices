@@ -3,15 +3,14 @@ package com.order_service.controller;
 import com.order_service.clients.InventoryInOrderServiceFeignClient;
 import com.order_service.dto.OrderRequestDTO;
 import java.util.List;
+
+import com.order_service.dto.OrderRequestItemDTO;
 import com.order_service.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 
 @RestController
@@ -51,4 +50,29 @@ public class OrderController {
         return inventoryInOrderServiceFeignClient.productName(id);
     }
 
+    @PostMapping("/placeOrder")
+    public String placeNewOrder(@RequestBody OrderRequestDTO orderRequestDTO){
+        if(orderRequestDTO==null){
+            return "Kindly provide the entire order details, seems sufficient data not provided";
+        }
+        log.info("Inside the Order controller!");
+        for(OrderRequestItemDTO item: orderRequestDTO.getItems()){
+            log.info("Iteration of the update is for id: {}",item.getProductId());
+            if(item.getQuantity()>inventoryInOrderServiceFeignClient.getAvailableCount(item.getProductId())){
+                log.info("Insufficient stock for {} order",item.getId());
+                throw new RuntimeException("Insufficient stock for "+item.getQuantity()
+                        +" available stock is "+inventoryInOrderServiceFeignClient.getAvailableCount(item.getId()));
+            }
+            log.info("Reducing stock for product is {}",item.getProductId());
+            inventoryInOrderServiceFeignClient.reduceStock(item.getProductId(), item.getQuantity());
+            ordersService.createNewOrder(orderRequestDTO);
+        }
+
+        return "Order for "+orderRequestDTO.getItems().size()+" items received!";
+    }
+
+    @GetMapping("availableItesm/{productId}")
+    public Integer getAvailableItems(@PathVariable Long productId){
+        return inventoryInOrderServiceFeignClient.getAvailableCount(productId);
+    }
 }

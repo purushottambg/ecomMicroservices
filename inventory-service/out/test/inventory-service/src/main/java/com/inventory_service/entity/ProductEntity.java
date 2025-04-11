@@ -24,5 +24,4 @@ public class ProductEntity {
     private Integer stock;
 
     private String description;
-
 }

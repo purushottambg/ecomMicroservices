@@ -5,6 +5,7 @@ import com.order_service.entity.OrdersEntity;
 import com.order_service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.query.Order;
 import org.modelmapper.ModelMapper;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,11 @@ public class OrdersService {
         log.info("OrderService: Total order Entities are: {}", foundOrders1.size());
 
         return foundOrders;
+    }
+
+    public OrderRequestDTO createNewOrder(OrderRequestDTO orderRequestDTO){
+        OrdersEntity toBeSavedOrder = modelMapper.map(orderRequestDTO, OrdersEntity.class);
+        log.info("Order with order id {} has been saved!", toBeSavedOrder.getId());
+        return modelMapper.map(orderRepository.save(toBeSavedOrder), OrderRequestDTO.class);
     }
 }

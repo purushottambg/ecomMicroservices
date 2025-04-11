@@ -2,6 +2,8 @@ package com.order_service.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /*
@@ -18,4 +20,10 @@ public interface InventoryInOrderServiceFeignClient {
 
     @GetMapping("/inventory/productname")
     String productName(@RequestParam("id") Long id);
+
+    @GetMapping("/inventory/availableStock/{productId}")
+    Integer getAvailableCount(@PathVariable Long productId);
+
+    @PutMapping("/inventory/reduceStock/{productId}/{quantity}")
+    Integer reduceStock(@PathVariable Long productId, @PathVariable Integer quantity);
 }

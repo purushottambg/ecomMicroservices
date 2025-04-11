@@ -7,7 +7,9 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Iterator;
 import java.util.List;
@@ -52,7 +54,6 @@ public class ProductService {
                 .toList();
     }
 
-
     @Transactional
     public Integer updateStockValue(Long productId, Integer quantity) {
          ProductEntity product = productRepository.findById(productId).orElseThrow(
@@ -61,9 +62,9 @@ public class ProductService {
          if (product==null){
              throw new RuntimeException("Couldn't find the product");
          }
-        logger.info("current stock for product {} is: {}",productId,product.getStock());
+
          product.setStock(product.getStock()-quantity);
-         logger.info("updated stock for product {} is: {}",productId,product.getStock());
+
          productRepository.save(product);
 
          return product.getStock();

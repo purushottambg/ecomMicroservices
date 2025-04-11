@@ -57,7 +57,6 @@ public class ProductController {
 
     @PutMapping("/reduceStock/{productId}/{quantity}")
     private Integer reduceStockOnPurchase(@PathVariable Long productId, @PathVariable Integer quantity){
-        logger.info("Reduce API called successfully for product {} reducing by {}",productId,quantity);
         return productService.updateStockValue(productId, quantity);
     }
 
