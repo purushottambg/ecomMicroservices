@@ -42,11 +42,16 @@ public class OrdersService {
         if(ordersEntity==null){
             log.info("order entity is null");
         }
-        ordersEntity.setOrderStatus(OrderStatusENum.CONFIRMED);
-        for (OrderRequestItemDTO items: orderRequestDTO.getItems()){
-            ordersEntity.setOrderItems(modelMapper.map(items, OrdersEntity.class).getOrderItems());
+
+        for (OrderItemsEntity items: ordersEntity.getOrderItems() ){
+            items.setOrdersEntity(ordersEntity);
         }
+        ordersEntity.setOrderStatus(OrderStatusENum.CONFIRMED);
         ordersEntity.setPrice(12300d);
-        return modelMapper.map(orderRepository.save(ordersEntity), OrderRequestDTO.class);
+
+        OrdersEntity savedOrder = orderRepository.save(ordersEntity);
+
+        return modelMapper.map(savedOrder, OrderRequestDTO.class);
+
     }
 }

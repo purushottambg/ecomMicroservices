@@ -19,11 +19,6 @@ public class OrdersEntity {
     private OrderStatusENum orderStatus;
 
     private Double price;
-
-    @Version
-    private Integer version;
-
-
     /*
     Cascade type all is used so changes are reflected in the referring table also
      */
