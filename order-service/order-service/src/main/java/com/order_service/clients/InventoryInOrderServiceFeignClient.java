@@ -1,10 +1,11 @@
 package com.order_service.clients;
 
+import com.order_service.dto.OrderRequestDTO;
+import com.order_service.dto.OrderRequestItemDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /*
 Mention the service details for which this client is.
@@ -24,6 +25,6 @@ public interface InventoryInOrderServiceFeignClient {
     @GetMapping("/inventory/availableStock/{productId}")
     Integer getAvailableCount(@PathVariable Long productId);
 
-    @PutMapping("/inventory/reduceStock/{productId}/{quantity}")
-    Integer reduceStock(@PathVariable Long productId, @PathVariable Integer quantity);
+    @PutMapping("/inventory/reduceStock")
+    Double reduceStock(@RequestBody List<OrderRequestItemDTO> orderDTO);
 }

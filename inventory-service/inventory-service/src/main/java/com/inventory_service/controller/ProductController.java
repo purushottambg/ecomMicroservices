@@ -1,5 +1,6 @@
 package com.inventory_service.controller;
 
+import com.inventory_service.dto.ItemsDTO;
 import com.inventory_service.dto.ProductDTO;
 import com.inventory_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -55,10 +56,12 @@ public class ProductController {
         return productService.findByID(productId).getStock();
     }
 
-    @PutMapping("/reduceStock/{productId}/{quantity}")
-    private Integer reduceStockOnPurchase(@PathVariable Long productId, @PathVariable Integer quantity){
-        logger.info("Reduce API called successfully for product {} reducing by {}",productId,quantity);
-        return productService.updateStockValue(productId, quantity);
+    @PutMapping("/reduceStock")
+    private Double reduceStockOnPurchase(@RequestBody List<ItemsDTO> itemsDTO){
+        logger.info("Inventory controller received an order for {} products",itemsDTO.size());
+        for (ItemsDTO order: itemsDTO){
+            logger.info("id {} and quantity is {}",order.getProductId(), order.getQuantity());
+        }
+        return productService.reduceStock(itemsDTO);
     }
-
 }

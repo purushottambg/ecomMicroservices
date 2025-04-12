@@ -1,5 +1,6 @@
 package com.inventory_service.service;
 
+import com.inventory_service.dto.ItemsDTO;
 import com.inventory_service.dto.ProductDTO;
 import com.inventory_service.entity.ProductEntity;
 import com.inventory_service.repository.ProductRepository;
@@ -52,21 +53,35 @@ public class ProductService {
                 .toList();
     }
 
-
     @Transactional
-    public Integer updateStockValue(Long productId, Integer quantity) {
-         ProductEntity product = productRepository.findById(productId).orElseThrow(
-                 ()-> new RuntimeException("Couldn't find the product")
-         );
-         if (product==null){
-             throw new RuntimeException("Couldn't find the product");
-         }
-        logger.info("current stock for product {} is: {}",productId,product.getStock());
-         product.setStock(product.getStock()-quantity);
-         logger.info("updated stock for product {} is: {}",productId,product.getStock());
-         productRepository.save(product);
+    public Double reduceStock(List<ItemsDTO> productDTO) {
+        Double cartPrice=0d;
+        for (ItemsDTO productOrder : productDTO) {
 
-         return product.getStock();
+            logger.info("We received {} units request for product {}", productOrder.getQuantity(), productOrder.getProductId());
+            Long productId = productOrder.getProductId();
+            Integer quantity = productOrder.getQuantity();
 
+            ProductEntity productAvailableStock = productRepository.findById(productId).orElseThrow(
+                    () -> new RuntimeException("Couldn't find the product with id: " + productOrder.getProductId())
+            );
+
+            if (productAvailableStock == null) {
+                throw new RuntimeException("Couldn't find the product with id: " + productOrder.getProductId());
+            }
+
+            if (productOrder.getQuantity() > productAvailableStock.getStock()) {
+                throw new RuntimeException("Insufficient Stock for " + productAvailableStock.getName() + ", available stock is " + productAvailableStock.getStock());
+            }
+
+            productAvailableStock.setStock(productAvailableStock.getStock() - productOrder.getQuantity());
+
+            cartPrice+=productAvailableStock.getPrice() * quantity;
+            logger.info("Cart price after {} product is {}",productAvailableStock.getName(), cartPrice);
+
+            productRepository.save(productAvailableStock);
+        }
+
+        return cartPrice;
     }
 }
