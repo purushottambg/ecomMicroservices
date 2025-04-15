@@ -59,20 +59,6 @@ public class OrderController {
         log.info("Inside the Order controller! received order for {} items", orderRequestDTO.getItems().size());
 
         ordersService.createNewOrder(orderRequestDTO);
-
-//        log.info("Inside the Order controller! received order for {} items", orderRequestDTO.getItems().size());
-//        for(OrderRequestItemDTO item: orderRequestDTO.getItems()){
-//            log.info("Iteration of the update is for id: {}",item.getProductId());
-//            if(item.getQuantity()>inventoryInOrderServiceFeignClient.getAvailableCount(item.getProductId())){
-//                log.info("Insufficient stock for {} order",item.getId());
-//                throw new RuntimeException("Insufficient stock for "+item.getQuantity()
-//                        +" available stock is "+inventoryInOrderServiceFeignClient.getAvailableCount(item.getId()));
-//            }
-//            log.info("Reducing stock for product is {}",item.getProductId());
-//            inventoryInOrderServiceFeignClient.reduceStock(item.getProductId(), item.getQuantity());
-//            ordersService.createNewOrder(orderRequestDTO);
-//        }
-
         return "Order for "+orderRequestDTO.getItems().size()+" items received!";
     }
 

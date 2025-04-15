@@ -2,17 +2,16 @@ package com.order_service.service;
 
 import com.order_service.clients.InventoryInOrderServiceFeignClient;
 import com.order_service.dto.OrderRequestDTO;
-import com.order_service.dto.OrderRequestItemDTO;
 import com.order_service.entity.OrderItemsEntity;
 import com.order_service.entity.OrderStatusENum;
 import com.order_service.entity.OrdersEntity;
 import com.order_service.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.query.Order;
 import org.modelmapper.ModelMapper;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +37,7 @@ public class OrdersService {
         return foundOrders;
     }
 
+    @Retry(name = "inventoryRetry", fallbackMethod = "handleFallback")
     public OrderRequestDTO createNewOrder(OrderRequestDTO orderRequestDTO){
 
         Double totalCartPrice = inventoryFeignClient.reduceStock(orderRequestDTO.getItems());
@@ -56,5 +56,10 @@ public class OrdersService {
 
         return modelMapper.map(savedOrder, OrderRequestDTO.class);
 
+    }
+
+    public OrderRequestDTO handleFallback(OrderRequestDTO orderRequestDTO, Throwable throwable){
+        log.info("Fallback occurred due to {}", throwable.getMessage());
+        return new OrderRequestDTO();
     }
 }
