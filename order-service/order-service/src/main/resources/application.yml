@@ -1,6 +1,13 @@
 resilience4j:
-  retry:
-    instances:
-      inventoryRetry:
-        maxRetryAttempts: 3 #Re-trials
-        waitDuration: 10s #This is the time which is an interval to retry the call after that amount of time
+#  retry:
+#    instances:
+#      inventoryRetry:
+#        maxRetryAttempts: 3 #Re-trials
+#        waitDuration: 10s #This is the time which is an interval to retry the call after that amount of time
+
+  ratelimiter:
+    configs:
+      defaults:
+        limitForPeriod: 5           #number of requests allowed in this period
+        limitRefreshPeriod: 8s      #period time defined for one session
+        timeoutDuration: 2s         #time allowed for execution of request
