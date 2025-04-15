@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.order_service.dto.OrderRequestItemDTO;
 import com.order_service.service.OrdersService;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
@@ -40,9 +41,10 @@ public class OrderController {
         return response;
     }
 
+
     @GetMapping("/getgreeting")
     public String greetOrders(){
-        return inventoryInOrderServiceFeignClient.greet();
+        return ordersService.getGreeting();
     }
 
     @GetMapping("/show-product/{id}")

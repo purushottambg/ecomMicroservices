@@ -20,6 +20,7 @@ public class OrdersService {
 
     private final OrderRepository orderRepository;
     private final InventoryInOrderServiceFeignClient inventoryFeignClient;
+
     private final ModelMapper modelMapper;
 
     public List<OrderRequestDTO> getAllOrders(){
@@ -35,6 +36,12 @@ public class OrdersService {
         log.info("OrderService: Total order Entities are: {}", foundOrders1.size());
 
         return foundOrders;
+    }
+
+    @Retry(name = "inventoryRetry", fallbackMethod = "handleGreetFallback")
+    public String getGreeting(){
+        log.info("Trying to get the greeting message!!");
+        return inventoryFeignClient.greet();
     }
 
     @Retry(name = "inventoryRetry", fallbackMethod = "handleFallback")
@@ -61,5 +68,10 @@ public class OrdersService {
     public OrderRequestDTO handleFallback(OrderRequestDTO orderRequestDTO, Throwable throwable){
         log.info("Fallback occurred due to {}", throwable.getMessage());
         return new OrderRequestDTO();
+    }
+
+    public String handleGreetFallback(Throwable throwable){
+        log.warn("Fallback occurred due to the: {}", throwable.getMessage());
+        return "Fallback occurred due to: "+throwable.getMessage();
     }
 }

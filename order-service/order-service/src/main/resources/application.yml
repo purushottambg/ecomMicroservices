@@ -2,5 +2,5 @@ resilience4j:
   retry:
     instances:
       inventoryRetry:
-        maxRetryAttempts:3
-        waitDuration:500ms
+        maxRetryAttempts: 3 #Re-trials
+        waitDuration: 10s #This is the time which is an interval to retry the call after that amount of time
