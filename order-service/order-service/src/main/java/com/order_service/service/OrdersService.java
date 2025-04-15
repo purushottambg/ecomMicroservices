@@ -6,6 +6,7 @@ import com.order_service.entity.OrderItemsEntity;
 import com.order_service.entity.OrderStatusENum;
 import com.order_service.entity.OrdersEntity;
 import com.order_service.repository.OrderRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,8 @@ public class OrdersService {
     }
 
     //@Retry(name = "inventoryRetry", fallbackMethod = "handleGreetFallback")
-    @RateLimiter(name = "inventoryRateLimiter", fallbackMethod = "handleGreetFallback")
+    @RateLimiter(name = "inventoryRateLimiter", fallbackMethod = "inventoryRateLimiter")
+    @CircuitBreaker(name = "inventoryCircuitBreaker", fallbackMethod="inventoryRateLimiter")
     public String getGreeting(){
         log.info("Trying to get the greeting message!!");
         return inventoryFeignClient.greet();
