@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class OrderRequestDTO {
+    private Long orderId;
     private List<OrderRequestItemDTO> items;
-    private BigDecimal totalPrice;
+    private BigDecimal price;
 }

@@ -28,16 +28,19 @@ public class OrdersService {
     public List<OrderRequestDTO> getAllOrders(){
         log.info("OrderService: Fetching all the orders");
 
-        List<OrderRequestDTO> foundOrders = orderRepository.findAll().stream()
-                .map(ordersEntity -> modelMapper.map(ordersEntity, OrderRequestDTO.class))
+//        List<OrderRequestDTO> foundOrders = orderRepository.findAll().stream()
+//                .map(ordersEntity -> modelMapper.map(ordersEntity, OrderRequestDTO.class))
+//                .toList();
+        List<OrderRequestDTO> orders = orderRepository.findAll().stream()
+                .map(entity-> modelMapper.map(entity, OrderRequestDTO.class))
                 .toList();
 
         List<OrdersEntity> foundOrders1 = orderRepository.findAll();
 
-        log.info("OrderService: Total orders are: {}", foundOrders.size());
+        log.info("OrderService: Total orders are: {}", orders.size());
         log.info("OrderService: Total order Entities are: {}", foundOrders1.size());
 
-        return foundOrders;
+        return orders;
     }
 
     //@Retry(name = "inventoryRetry", fallbackMethod = "handleGreetFallback")
