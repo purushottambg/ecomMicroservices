@@ -1,0 +1,27 @@
+resilience4j:
+#  retry:
+#    instances:
+#      inventoryRetry:
+#        maxRetryAttempts: 3 #Re-trials
+#        waitDuration: 10s #This is the time which is an interval to retry the call after that amount of time
+
+#  ratelimiter:
+#    configs:
+#      defaults:
+#        limitForPeriod: 5           #number of requests allowed in this period
+#        limitRefreshPeriod: 8s      #period time defined for one session
+#        timeoutDuration: 2s         #time allowed for execution of request
+
+    circuitbreaker:
+      circuitbreaker:
+        instances:
+          inventoryFeignClient:
+            register-health-indicator: true
+            sliding-window-size: 10
+            failure-rate-threshold: 50
+            wait-duration-in-open-state: 10000
+            permitted-number-of-calls-in-half-open-state: 5
+            sliding-window-type: COUNT_BASED
+            minimum-number-of-calls: 5
+            automatic-transition-from-open-to-half-open-enabled: true
+
