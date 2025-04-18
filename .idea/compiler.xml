@@ -16,12 +16,12 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
+        <module name="order-service" />
+        <module name="inventory-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="discovery-of-an-services" target="17" />
-      <module name="inventory-service" target="17" />
-      <module name="order-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
