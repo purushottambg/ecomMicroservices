@@ -2,32 +2,31 @@ server:
   port: 1200
 
 spring:
-    application:
-        name: api-gateway
+  application:
+    name: api-gateway
 
-#API gateway config
-    cloud:
-        gateway:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: false
 
-            discovery:
-              locator:
-                enabled: true
-                lowerCaseServiceId: false
+      routes:
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/orders/**
+          filters:
+            - StripPrefix=0
 
-            routes:
-              - id: order-service
-                uri: lb://ORDER-SERVICE
-                predicates:
-                  - Path=/orders/**
-                filters:
-                    - StripPrefix=0
+        - id: inventory-service
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - Path=/inventory/**
+          filters:
+            - StripPrefix=0
 
-              - id: inventory-service
-                uri: lb://INVENTORY-SERVICE
-                predicates:
-                  - Path=/inventory/**
-                filters:
-                  - StripPrefix=0
 management:
   endpoints:
     web:
@@ -39,13 +38,13 @@ management:
 
 logging:
   level:
-      - org.springframework.cloud.gateway: TRACE
-      - org.springframework.http.server.reactive: DEBUG
-      - org.springframework.web.reactive: DEBUG
-      - reactor.netty: DEBUG
-      - org.springframework.cloud.netflix.eureka: DEBUG
-      - com.netflix.discovery: DEBUG
-      - org.springframework.cloud.loadbalancer: DEBUG
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.netty: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
 
 eureka:
   client:
