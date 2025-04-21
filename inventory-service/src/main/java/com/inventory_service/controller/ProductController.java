@@ -67,13 +67,8 @@ public class ProductController {
 
     @PostMapping("/addStock")
     private List<ProductDTO> addProducts(@RequestBody List<ProductDTO> products){
-        for(ProductDTO productDTO: products){
-            logger.info("Product ID: {}",productDTO.getProduct_id());
-            logger.info("Product Name: {}",productDTO.getName());
-            logger.info("Product price: {}",productDTO.getPrice());
-            logger.info("Product Stock: {}",productDTO.getStock());
-            logger.info("Product Description: {}",productDTO.getDescription());
-        }
+
+        productService.addStocksToTheInventory(products);
 
         return products;
     }

@@ -53,6 +53,16 @@ public class ProductService {
                 .toList();
     }
 
+    public List<ProductDTO> addStocksToTheInventory(List<ProductDTO> products){
+
+        List<ProductEntity> productEntities = products.stream()
+                .map(productLambada -> modelMapper.map(productLambada,ProductEntity.class)).toList();
+
+          productRepository.saveAll(productEntities);
+
+          return products;
+    }
+
     @Transactional
     public Double reduceStock(List<ItemsDTO> productDTO) {
         Double cartPrice=0d;
