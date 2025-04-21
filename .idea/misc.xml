@@ -4,24 +4,12 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/order-service/order-service/pom.xml" />
-        <option value="$PROJECT_DIR$/inventory-service/inventory-service/pom.xml" />
-        <option value="$PROJECT_DIR$/discovery-service/pom.xml" />
+        <option value="$PROJECT_DIR$/out/production/Microservices 1/pom.xml" />
         <option value="$PROJECT_DIR$/api-gateway/pom.xml" />
-        <option value="$PROJECT_DIR$/inventory-service/pom.xml" />
         <option value="$PROJECT_DIR$/order-service/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery-service/pom.xml" />
+        <option value="$PROJECT_DIR$/inventory-service/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-<!--<<<<<<< HEAD-->
-<!--        <option value="$PROJECT_DIR$/discovery-service/pom.xml" />-->
-<!--=======-->
-<!--&gt;>>>>>> 583ac7e (seems some functionality are missing)-->
-          <option value="$PROJECT_DIR$/discovery-service/pom.xml" />
-        <option value="$PROJECT_DIR$/inventory-service/inventory-service/pom.xml" />
-        <option value="$PROJECT_DIR$/order-service/order-service/pom.xml" />
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
