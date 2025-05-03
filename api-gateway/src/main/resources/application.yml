@@ -19,6 +19,7 @@ spring:
             - Path=/orders/**
           filters:
             - StripPrefix=0
+            - name: LoggingOrdersFilter
 
         - id: inventory-service
           uri: lb://INVENTORY-SERVICE
