@@ -14,7 +14,7 @@ import lombok.*;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO )
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long product_id;
 
     private String name;
