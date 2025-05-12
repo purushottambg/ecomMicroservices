@@ -68,6 +68,7 @@ public class ProductController {
     @PostMapping("/addStock")
     private List<ProductDTO> addProducts(@RequestBody List<ProductDTO> products){
 
+        logger.info("Product size details: {}",products.size());
         productService.addStocksToTheInventory(products);
 
         return products;
