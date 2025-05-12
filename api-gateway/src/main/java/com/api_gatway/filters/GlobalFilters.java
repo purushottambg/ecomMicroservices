@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -16,19 +15,16 @@ public class GlobalFilters implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        log.info("Logging filter pre:{}", exchange.getResponse().getStatusCode());
 
-        return chain.filter(exchange).then(Mono.fromRunnable(
-                ()->{
-                    log.info("Logging Filter Post:{}",exchange.getResponse().getStatusCode());
-                }
-                ));
+        log.info("Logging from global pre:{}", exchange.getResponse().getStatusCode());
+
+        return chain.filter(exchange).then(Mono.fromRunnable(()->{
+            log.info("Logging from global Post:{}", exchange.getResponse().getStatusCode());
+        }));
     }
 
     @Override
     public int getOrder(){
         return 5;
     }
-
-
 }

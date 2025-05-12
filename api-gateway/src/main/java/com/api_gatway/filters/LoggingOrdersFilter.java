@@ -9,20 +9,20 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingOrdersFilter extends AbstractGatewayFilterFactory<LoggingOrdersFilter.Config> {
 
-    public LoggingOrdersFilter( ){
+    public LoggingOrdersFilter() {
         super(Config.class);
     }
 
     @Override
     public GatewayFilter apply(Config config) {
 
-        return((exchange, chain) -> {
+        return ((exchange, chain) -> {
             log.info("Route Specific Filters: {} ", exchange.getRequest().getId());
             return chain.filter(exchange);
         });
     }
 
-    public static class Config{
+    public static class Config {
 
     }
 
