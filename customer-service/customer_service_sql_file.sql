@@ -1,3 +1,3 @@
-create database ms_customer_service;
-use ms_customer_service;
+create database ms_customerservice;
+use ms_customerservice;
 show tables;
