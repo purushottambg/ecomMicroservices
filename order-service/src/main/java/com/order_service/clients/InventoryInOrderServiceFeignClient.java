@@ -1,6 +1,5 @@
 package com.order_service.clients;
 
-import com.order_service.dto.OrderRequestDTO;
 import com.order_service.dto.OrderRequestItemDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
