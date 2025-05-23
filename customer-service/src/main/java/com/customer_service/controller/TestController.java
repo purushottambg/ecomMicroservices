@@ -1,4 +1,4 @@
-package com.customer_service.customer_service.controller;
+package com.customer_service.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
