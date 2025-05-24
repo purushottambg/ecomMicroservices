@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "customer")
+@RequestMapping(path = "/customer")
 public class CustomerController {
 
-    @PostMapping
+    @PostMapping("/create-customer")
     public String createCustomer(@RequestBody CustomerDTO customerDTO){
 
         return "Customer Has been successfully Created!";
