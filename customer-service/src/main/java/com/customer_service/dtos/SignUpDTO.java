@@ -1,22 +1,15 @@
-package com.customer_service.entity;
+package com.customer_service.dtos;
 
 import com.customer_service.dtos.enums.RolesEnum;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "customers")
-public class CustomerEntity {
+public class SignUpDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String email;
     private String phone;
-    @Enumerated(EnumType.STRING)
     private RolesEnum roles;
     private String address;
     private String password; // hash it!
