@@ -26,6 +26,7 @@ public class CustomerController {
     @PostMapping("/sign-up")
     public ResponseEntity<?> createCustomer(@RequestBody SignUpDTO signUpDTO){
         Optional<CustomerEntity> savedCustomer = customerService.createUser(signUpDTO);
+        System.out.println(signUpDTO.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
     }
 }
