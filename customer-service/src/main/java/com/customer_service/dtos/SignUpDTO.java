@@ -20,8 +20,4 @@ public class SignUpDTO {
     private String address;
     private String password; // hash it!
     private LocalDate registeredAt;
-
-
-
-
 }
