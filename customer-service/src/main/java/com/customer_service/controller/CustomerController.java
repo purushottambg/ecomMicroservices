@@ -4,6 +4,7 @@ import com.customer_service.dtos.CustomerDTO;
 import com.customer_service.dtos.SignUpDTO;
 import com.customer_service.entity.CustomerEntity;
 import com.customer_service.service.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/customer")
+@RequiredArgsConstructor
 public class CustomerController {
 
     private ModelMapper modelMapper;
@@ -25,9 +27,9 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<?> logInCustomer(@RequestBody CustomerDTO customerDTO){
-         Optional<CustomerEntity> foundCustomer = customerService.validateLoginRequest(customerDTO);
-         return ResponseEntity.status(HttpStatus.FOUND).body(foundCustomer);
-    }
+//    @GetMapping("/login")
+//    public ResponseEntity<?> logInCustomer(@RequestBody CustomerDTO customerDTO){
+//         Optional<CustomerEntity> foundCustomer = customerService.validateLoginRequest(customerDTO);
+//         return ResponseEntity.status(HttpStatus.FOUND).body(foundCustomer);
+//    }
 }
