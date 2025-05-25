@@ -1,9 +1,15 @@
 package com.customer_service.dtos;
 
 import com.customer_service.dtos.enums.RolesEnum;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@Builder
 public class SignUpDTO {
 
     private Long id;

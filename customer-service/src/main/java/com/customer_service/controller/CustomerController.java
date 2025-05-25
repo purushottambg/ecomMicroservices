@@ -22,9 +22,10 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+
     @PostMapping("/sign-up")
-    public ResponseEntity<?> createCustomer(@RequestBody SignUpDTO customerDTO){
-        Optional<CustomerEntity> savedCustomer = customerService.createUser(customerDTO);
+    public ResponseEntity<?> createCustomer(@RequestBody SignUpDTO signUpDTO){
+        Optional<CustomerEntity> savedCustomer = customerService.createUser(signUpDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
     }
 }
