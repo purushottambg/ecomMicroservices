@@ -28,9 +28,6 @@ public class OrdersService {
     public List<OrderRequestDTO> getAllOrders(){
         log.info("OrderService: Fetching all the orders");
 
-//        List<OrderRequestDTO> foundOrders = orderRepository.findAll().stream()
-//                .map(ordersEntity -> modelMapper.map(ordersEntity, OrderRequestDTO.class))
-//                .toList();
         List<OrderRequestDTO> orders = orderRepository.findAll().stream()
                 .map(entity-> modelMapper.map(entity, OrderRequestDTO.class))
                 .toList();
