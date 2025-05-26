@@ -29,4 +29,9 @@ public class CustomerController {
         System.out.println(signUpDTO.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
     }
+
+    @GetMapping("/customersignup")
+    public String customerGreet(){
+        return "Greetings from the customer";
+    }
 }
