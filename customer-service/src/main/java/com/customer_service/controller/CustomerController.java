@@ -1,5 +1,6 @@
 package com.customer_service.controller;
 
+import com.customer_service.dtos.CustomerDTO;
 import com.customer_service.dtos.SignUpDTO;
 import com.customer_service.entity.CustomerEntity;
 import com.customer_service.service.CustomerService;
@@ -17,21 +18,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private CustomerService customerService;
+    private final ModelMapper modelMapper;
+    private final CustomerService customerService;
 
+    @GetMapping("/customergreetings")
+    public String customerGreet(){
+        return "Greetings from the customer";
+    }
+
+    @GetMapping("/findCustomer/{id}")
+    public ResponseEntity<?> findCustomerByID(@RequestParam Long id){
+        Optional<SignUpDTO> foundCustomer = customerService.findUser(id);
+        return ResponseEntity.status(HttpStatus.FOUND).body(foundCustomer);
+    }
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> createCustomer(@RequestBody SignUpDTO signUpDTO){
         Optional<CustomerEntity> savedCustomer = customerService.createUser(signUpDTO);
         System.out.println(signUpDTO.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
-    }
-
-    @GetMapping("/customersignup")
-    public String customerGreet(){
-        return "Greetings from the customer";
     }
 }

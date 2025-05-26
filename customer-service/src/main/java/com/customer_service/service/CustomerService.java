@@ -25,4 +25,8 @@ public class CustomerService {
         return Optional.ofNullable(customerRepo.save(customerEntityToBeSaved));
     }
 
+    public Optional<SignUpDTO> findUser(Long id) {
+        SignUpDTO foundCustomer = modelMapper.map(customerRepo.findById(id), SignUpDTO.class);
+        return Optional.ofNullable(foundCustomer);
+    }
 }
