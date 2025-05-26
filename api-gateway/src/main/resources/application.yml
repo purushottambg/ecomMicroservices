@@ -28,6 +28,13 @@ spring:
           filters:
             - StripPrefix=0
 
+        - id: customer-service
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/customers/**
+          filters:
+            - StripPrefix=0
+
 management:
   endpoints:
     web:
