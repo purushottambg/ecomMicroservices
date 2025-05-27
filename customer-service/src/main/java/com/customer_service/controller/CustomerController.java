@@ -1,12 +1,12 @@
 package com.customer_service.controller;
 
+import com.customer_service.clients.InventoryClient;
 import com.customer_service.dtos.CustomerDTO;
 import com.customer_service.dtos.SignUpDTO;
 import com.customer_service.entity.CustomerEntity;
 import com.customer_service.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +18,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final ModelMapper modelMapper;
     private final CustomerService customerService;
+    private final InventoryClient inventoryClient;
 
     @GetMapping("/customergreetings")
     public String customerGreet(){
@@ -37,5 +37,10 @@ public class CustomerController {
         Optional<CustomerEntity> savedCustomer = customerService.createUser(signUpDTO);
         System.out.println(signUpDTO.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomer);
+    }
+
+    @GetMapping("/getgreetingsfrominventory")
+    public String greetingsFromInventory(){
+        return inventoryClient.findAllProductsInInventory();
     }
 }
