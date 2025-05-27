@@ -22,7 +22,6 @@ public class OrdersService {
 
     private final OrderRepository orderRepository;
     private final InventoryInOrderServiceFeignClient inventoryFeignClient;
-
     private final ModelMapper modelMapper;
 
     public List<OrderRequestDTO> getAllOrders(){

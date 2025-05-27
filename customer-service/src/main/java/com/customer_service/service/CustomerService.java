@@ -1,24 +1,22 @@
 package com.customer_service.service;
 
 
+import com.customer_service.clients.InventoryClient;
 import com.customer_service.dtos.SignUpDTO;
 import com.customer_service.entity.CustomerEntity;
 import com.customer_service.repository.CustomerRepo;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
-
+@RequiredArgsConstructor
 @Service
-@Slf4j
 public class CustomerService {
-    private CustomerRepo customerRepo;
-    private ModelMapper modelMapper;
-    public CustomerService(CustomerRepo customerRepo, ModelMapper modelMapper) {
-        this.customerRepo = customerRepo;
-        this.modelMapper = modelMapper;
-    }
+
+    private final CustomerRepo customerRepo;
+    private final InventoryClient inventoryClient;
+    private final ModelMapper modelMapper;
 
     public Optional<CustomerEntity> createUser(SignUpDTO signUpDTO) {
         CustomerEntity customerEntityToBeSaved = modelMapper.map(signUpDTO, CustomerEntity.class);
@@ -28,5 +26,9 @@ public class CustomerService {
     public Optional<SignUpDTO> findUser(Long id) {
         SignUpDTO foundCustomer = modelMapper.map(customerRepo.findById(id), SignUpDTO.class);
         return Optional.ofNullable(foundCustomer);
+    }
+
+    public String findAllProductsInInventory(){
+        return inventoryClient.findAllProductsInInventory();
     }
 }

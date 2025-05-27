@@ -1,16 +1,12 @@
 package com.customer_service.controller;
 
-import com.customer_service.clients.InventoryClient;
-import com.customer_service.dtos.CustomerDTO;
 import com.customer_service.dtos.SignUpDTO;
 import com.customer_service.entity.CustomerEntity;
 import com.customer_service.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 
 @RestController
@@ -19,7 +15,6 @@ import java.util.Optional;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final InventoryClient inventoryClient;
 
     @GetMapping("/customergreetings")
     public String customerGreet(){
@@ -41,6 +36,6 @@ public class CustomerController {
 
     @GetMapping("/getgreetingsfrominventory")
     public String greetingsFromInventory(){
-        return inventoryClient.findAllProductsInInventory();
+        return customerService.findAllProductsInInventory();
     }
 }

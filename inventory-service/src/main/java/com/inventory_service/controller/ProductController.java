@@ -22,7 +22,7 @@ public class ProductController {
 
     @GetMapping("/greet")
     public String greet(){
-        logger.info("✅ Reached Inventory Controller!");;
+        logger.info("✅ Reached Inventory Controller!");
         return ("Reached Inventory Controller!");
     }
 
