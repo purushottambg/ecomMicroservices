@@ -2,12 +2,15 @@ package com.customer_service.service;
 
 
 import com.customer_service.clients.InventoryClient;
+import com.customer_service.dtos.ProductDTO;
 import com.customer_service.dtos.SignUpDTO;
 import com.customer_service.entity.CustomerEntity;
 import com.customer_service.repository.CustomerRepo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -28,7 +31,11 @@ public class CustomerService {
         return Optional.ofNullable(foundCustomer);
     }
 
-    public String findAllProductsInInventory(){
+    public String greetingsFromInventory(){
+        return inventoryClient.getGreetingsFromInventory();
+    }
+
+    public List<ProductDTO> findAllProductsInInventory(){
         return inventoryClient.findAllProductsInInventory();
     }
 }

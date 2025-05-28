@@ -1,5 +1,6 @@
 package com.customer_service.controller;
 
+import com.customer_service.dtos.ProductDTO;
 import com.customer_service.dtos.SignUpDTO;
 import com.customer_service.entity.CustomerEntity;
 import com.customer_service.service.CustomerService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/customer")
@@ -36,6 +38,11 @@ public class CustomerController {
 
     @GetMapping("/getgreetingsfrominventory")
     public String greetingsFromInventory(){
+        return customerService.greetingsFromInventory();
+    }
+
+    @GetMapping("/finalAllProductsInInventory")
+    public List<ProductDTO> findAllProductsInInventory(){
         return customerService.findAllProductsInInventory();
     }
 }
