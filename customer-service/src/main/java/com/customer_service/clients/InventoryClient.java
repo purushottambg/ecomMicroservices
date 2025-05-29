@@ -14,4 +14,7 @@ public interface InventoryClient {
 
     @GetMapping("/inventory/allproducts")
     List<ProductDTO> findAllProductsInInventory();
+
+    @GetMapping("/inventory/availableStock/{id}")
+    Integer findAllProductsCountInInventory(Long id);
 }

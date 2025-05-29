@@ -41,8 +41,13 @@ public class CustomerController {
         return customerService.greetingsFromInventory();
     }
 
-    @GetMapping("/finalAllProductsInInventory")
+    @GetMapping("/findAllProductsInInventory")
     public List<ProductDTO> findAllProductsInInventory(){
         return customerService.findAllProductsInInventory();
+    }
+
+    @GetMapping("/availableStock/{id}")
+    public Integer findAllProductsCountInInventory(@RequestParam Long id){
+        return customerService.findAllProductsCountInInventory(id);
     }
 }

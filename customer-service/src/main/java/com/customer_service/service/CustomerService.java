@@ -38,4 +38,8 @@ public class CustomerService {
     public List<ProductDTO> findAllProductsInInventory(){
         return inventoryClient.findAllProductsInInventory();
     }
+
+    public Integer findAllProductsCountInInventory(Long id){
+        return inventoryClient.findAllProductsCountInInventory(id);
+    }
 }
