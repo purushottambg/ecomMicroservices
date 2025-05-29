@@ -3,6 +3,8 @@ package com.customer_service.clients;
 import com.customer_service.dtos.ProductDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,6 +17,6 @@ public interface InventoryClient {
     @GetMapping("/inventory/allproducts")
     List<ProductDTO> findAllProductsInInventory();
 
-    @GetMapping("/inventory/availableStock/{id}")
-    Integer findAllProductsCountInInventory(Long id);
+    @GetMapping("/inventory/availableStock/{productId}")
+    Integer findAllProductsCountInInventory(@PathVariable Long productId);
 }

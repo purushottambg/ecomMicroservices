@@ -47,7 +47,7 @@ public class CustomerController {
     }
 
     @GetMapping("/availableStock/{id}")
-    public Integer findAllProductsCountInInventory(@RequestParam Long id){
+    public Integer findAllProductsCountInInventory(@PathVariable Long id){
         return customerService.findAllProductsCountInInventory(id);
     }
 }
