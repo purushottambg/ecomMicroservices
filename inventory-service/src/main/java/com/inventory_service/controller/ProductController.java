@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,10 +20,12 @@ public class ProductController {
 
     Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping("/greet")
     public String greet(){
         logger.info("✅ Reached Inventory Controller!");
+        kafkaTemplate.send("test-topic", "Greetings via Kafka");
         return ("Reached Inventory Controller!");
     }
 
@@ -53,6 +56,7 @@ public class ProductController {
 
     @GetMapping("/availableStock/{productId}")
     private Integer availableStock(@PathVariable Long productId){
+
         return productService.findByID(productId).getStock();
     }
 

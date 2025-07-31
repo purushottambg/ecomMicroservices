@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.kafka.core.KafkaTemplate;
 import java.util.Optional;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @GetMapping("/customergreetings")
     public String customerGreet(){
@@ -26,6 +28,7 @@ public class CustomerController {
     @GetMapping("/findCustomer/{id}")
     public ResponseEntity<?> findCustomerByID(@RequestParam Long id){
         Optional<SignUpDTO> foundCustomer = customerService.findUser(id);
+        kafkaTemplate.send( "test-topic", "Customer with ID:"+id+ " was queried");
         return ResponseEntity.status(HttpStatus.FOUND).body(foundCustomer);
     }
 
@@ -38,6 +41,7 @@ public class CustomerController {
 
     @GetMapping("/getgreetingsfrominventory")
     public String greetingsFromInventory(){
+
         return customerService.greetingsFromInventory();
     }
 
